@@ -11,11 +11,13 @@
 int PixX = 0;	//Pixel X Position
 int PixY = 0;	//Pixel Y Position
 
+boolean drawOK= false;	//Set a T/F variable to see if the program has started
+
 Arduboy ab;		//Declare the Arduboy
 
 void setup() {
 	ab.setFrameRate(60);	//Smooth frame rate.
-	ab.beginNoLogo();		//Turn it on without a Logo
+	ab.begin();		//Turn it on without a Logo
 	txtinit();				//Run the next routine
 }
 void txtinit() {
@@ -36,8 +38,23 @@ void txtinit() {
 void loop() {
 
 	if (!(ab.nextFrame())) return;	//If not the next frame skip everything.
+	
+	if (ab.pressed(A_BUTTON + B_BUTTON)) {
+		PixX = 0;							//Set co-ordinates of the X & Y position.
+		PixY = 0;
+		drawOK = true;						//Set flag to true to start drawing.
+		ab.clear();
+		ab.drawPixel(PixX, PixY, WHITE);
+		ab.display();
+	}
+	if (drawOK) {							//Check to see if true, if so, allow drawing.
+		Draw();
+	}
+}
 
-	if (ab.getInput()==0) {			//Check to see if no buttons are pressed.
+void Draw() {
+
+	if (ab.buttonsState() == 0) {			//Check to see if no buttons are pressed.
 		ab.drawPixel(PixX, PixY, WHITE);	//Turn the current pixel on
 		delay(10);							//Wait 10ms
 		ab.display();
@@ -47,14 +64,8 @@ void loop() {
 	}
 
 
-	if (ab.pressed(A_BUTTON + B_BUTTON)) {
-		PixX = 0;							//Set co-ordinates of the X & Y position.
-		PixY = 0;
-		ab.clear();
-		ab.drawPixel(PixX, PixY, WHITE);
-		ab.display();
-	}
-	
+
+
 	if (ab.pressed(UP_BUTTON)) {
 		if (ab.getPixel(PixX, PixY) == BLACK) {	//Check to see if the current pixel is off (due to the flashing routine above)
 			ab.drawPixel(PixX, PixY, WHITE);	//If so, turn the pixel on, before moving onto the rest of the if/then statement
@@ -76,11 +87,11 @@ void loop() {
 		ab.drawPixel(PixX, PixY, WHITE);
 		ab.display();
 
-		if(PixY >= 63) {
+		if (PixY >= 63) {
 			PixY = 63;
 		}
 	}
-	
+
 	if (ab.pressed(RIGHT_BUTTON)) {
 		if (ab.getPixel(PixX, PixY) == BLACK) {
 			ab.drawPixel(PixX, PixY, WHITE);
@@ -93,7 +104,7 @@ void loop() {
 			PixX = 127;
 		}
 	}
-	
+
 	if (ab.pressed(LEFT_BUTTON)) {
 		if (ab.getPixel(PixX, PixY) == BLACK) {
 			ab.drawPixel(PixX, PixY, WHITE);
@@ -165,11 +176,5 @@ void loop() {
 
 
 
-
-
-
-
-
-
-
 }
+
