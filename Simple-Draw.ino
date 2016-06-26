@@ -63,13 +63,9 @@ void Draw() {
 		ab.display();
 	}
 
-
-
-
 	if (ab.pressed(UP_BUTTON)) {
-		if (ab.getPixel(PixX, PixY) == BLACK) {	//Check to see if the current pixel is off (due to the flashing routine above)
-			ab.drawPixel(PixX, PixY, WHITE);	//If so, turn the pixel on, before moving onto the rest of the if/then statement
-		}
+		isblackpixel();							//Check to see if the current pixel is off (due to the flashing routine above)
+												//If so, turn the pixel on, before moving onto the rest of the if/then statement
 		PixY--;									//Subtract 1 from the Y co-ordinate.
 		ab.drawPixel(PixX, PixY, WHITE);
 		ab.display();
@@ -80,9 +76,7 @@ void Draw() {
 	}
 
 	if (ab.pressed(DOWN_BUTTON)) {
-		if (ab.getPixel(PixX, PixY) == BLACK) {
-			ab.drawPixel(PixX, PixY, WHITE);
-		}
+		isblackpixel();
 		PixY++;
 		ab.drawPixel(PixX, PixY, WHITE);
 		ab.display();
@@ -93,9 +87,7 @@ void Draw() {
 	}
 
 	if (ab.pressed(RIGHT_BUTTON)) {
-		if (ab.getPixel(PixX, PixY) == BLACK) {
-			ab.drawPixel(PixX, PixY, WHITE);
-		}
+		isblackpixel();
 		PixX++;
 		ab.drawPixel(PixX, PixY, WHITE);
 		ab.display();
@@ -106,9 +98,7 @@ void Draw() {
 	}
 
 	if (ab.pressed(LEFT_BUTTON)) {
-		if (ab.getPixel(PixX, PixY) == BLACK) {
-			ab.drawPixel(PixX, PixY, WHITE);
-		}
+		isblackpixel();
 		PixX--;
 		ab.drawPixel(PixX, PixY, WHITE);
 		ab.display();
@@ -119,9 +109,7 @@ void Draw() {
 	}
 
 	if (ab.pressed(A_BUTTON + RIGHT_BUTTON)) {
-		if (ab.getPixel(PixX, PixY) == BLACK) {
-			ab.drawPixel(PixX, PixY, WHITE);
-		}
+		isblackpixel();
 		PixX++;
 		ab.drawPixel(PixX, PixY, WHITE);
 		delay(200);
@@ -133,9 +121,7 @@ void Draw() {
 	}
 
 	if (ab.pressed(A_BUTTON + LEFT_BUTTON)) {
-		if (ab.getPixel(PixX, PixY) == BLACK) {
-			ab.drawPixel(PixX, PixY, WHITE);
-		}
+		isblackpixel();
 		PixX--;
 		ab.drawPixel(PixX, PixY, WHITE);
 		delay(200);
@@ -146,9 +132,7 @@ void Draw() {
 		}
 	}
 	if (ab.pressed(A_BUTTON + UP_BUTTON)) {
-		if (ab.getPixel(PixX, PixY) == BLACK) {
-			ab.drawPixel(PixX, PixY, WHITE);
-		}
+		isblackpixel();
 		PixY--;
 		ab.drawPixel(PixX, PixY, WHITE);
 		delay(200);
@@ -160,9 +144,7 @@ void Draw() {
 	}
 
 	if (ab.pressed(A_BUTTON + DOWN_BUTTON)) {
-		if (ab.getPixel(PixX, PixY) == BLACK) {
-			ab.drawPixel(PixX, PixY, WHITE);
-		}
+		isblackpixel();
 		PixY++;
 		ab.drawPixel(PixX, PixY, WHITE);
 		delay(200);
@@ -172,9 +154,10 @@ void Draw() {
 			PixY = 63;
 		}
 	}
-
-
-
-
 }
 
+void isblackpixel() {
+	if (ab.getPixel(PixX, PixY) == BLACK) {
+		ab.drawPixel(PixX, PixY, WHITE);
+	}
+}
